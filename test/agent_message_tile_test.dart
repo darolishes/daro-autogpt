@@ -1,14 +1,19 @@
-import 'package:auto_gpt_flutter_client/views/chat/agent_message_tile.dart';
-import 'package:auto_gpt_flutter_client/views/chat/json_code_snippet_view.dart';
+import 'package:auto_gpt_flutter_client/models/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:auto_gpt_flutter_client/views/chat/agent_message_tile.dart';
 
 void main() {
   // Test to verify that the AgentMessageTile renders correctly
   testWidgets('Renders AgentMessageTile', (WidgetTester tester) async {
+    final Chat chat;
+
     await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
-        body: AgentMessageTile(message: 'Test Message'),
+        body: AgentMessageTile({
+            required this.chat,
+            this.message: 'Test Message'
+          }),
       ),
     ));
 
@@ -20,9 +25,9 @@ void main() {
 
   // Test to verify that the expand/collapse functionality works
   testWidgets('Toggle Expand/Collapse', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: AgentMessageTile(message: 'Test Message'),
+        body: AgentMessageTile(message: 'Test Message', chat: Chat()),
       ),
     ));
 

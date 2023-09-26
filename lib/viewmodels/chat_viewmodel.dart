@@ -41,7 +41,9 @@ class ChatViewModel with ChangeNotifier {
   /// Fetches chats from the data source for a specific task.
   void fetchChatsForTask() async {
     if (_currentTaskId == null) {
-      print("Error: Task ID is not set.");
+      if (kDebugMode) {
+        print("Error: Task ID is not set.");
+      }
       return;
     }
     try {
@@ -94,10 +96,14 @@ class ChatViewModel with ChangeNotifier {
       // Notify listeners to rebuild UI
       notifyListeners();
 
-      print(
-          "Chats (and steps) fetched successfully for task ID: $_currentTaskId");
+      if (kDebugMode) {
+        print(
+            "Chats (and steps) fetched successfully for task ID: $_currentTaskId");
+      }
     } catch (error) {
-      print("Error fetching chats: $error");
+      if (kDebugMode) {
+        print("Error fetching chats: $error");
+      }
       // TODO: Handle additional error scenarios or log them as required
     }
   }
@@ -106,7 +112,9 @@ class ChatViewModel with ChangeNotifier {
   void sendChatMessage(String? message,
       {required int continuousModeSteps, int currentStep = 1}) async {
     if (_currentTaskId == null) {
-      print("Error: Task ID is not set.");
+      if (kDebugMode) {
+        print("Error: Task ID is not set.");
+      }
       return;
     }
     try {
@@ -158,10 +166,14 @@ class ChatViewModel with ChangeNotifier {
         }
       }
 
-      print("Chats added for task ID: $_currentTaskId");
+      if (kDebugMode) {
+        print("Chats added for task ID: $_currentTaskId");
+      }
     } catch (error) {
       // TODO: Bubble up errors to UI
-      print("Error sending chat: $error");
+      if (kDebugMode) {
+        print("Error sending chat: $error");
+      }
       // TODO: Handle additional error scenarios or log them as required
     }
   }

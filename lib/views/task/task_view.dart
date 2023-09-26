@@ -2,6 +2,7 @@ import 'package:auto_gpt_flutter_client/models/task.dart';
 import 'package:auto_gpt_flutter_client/models/test_suite.dart';
 import 'package:auto_gpt_flutter_client/views/task/test_suite_detail_view.dart';
 import 'package:auto_gpt_flutter_client/views/task/test_suite_list_tile.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/task_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/chat_viewmodel.dart';
@@ -49,8 +50,10 @@ class _TaskViewState extends State<TaskView> {
                           Provider.of<ChatViewModel>(context, listen: false);
                       chatViewModel.clearCurrentTaskAndChats();
                       widget.viewModel.deselectTask();
-                      print(
-                          'New Task button pressed, cleared current task ID and chats');
+                      if (kDebugMode) {
+                        print(
+                            'New Task button pressed, cleared current task ID and chats');
+                      }
                     },
                   )),
               // Task List
@@ -74,7 +77,9 @@ class _TaskViewState extends State<TaskView> {
                               listen: false);
                           chatViewModel.setCurrentTaskId(item.id);
 
-                          print('Task ${item.title} tapped');
+                          if (kDebugMode) {
+                            print('Task ${item.title} tapped');
+                          }
                         },
                         onDelete: () {
                           // Delete the task in TaskViewModel

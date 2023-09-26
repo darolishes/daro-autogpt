@@ -9,7 +9,8 @@ class AgentMessageTile extends StatefulWidget {
 
   const AgentMessageTile({
     Key? key,
-    required this.chat, // The agent message to be displayed
+    required this.chat,
+    required String message, // The agent message to be displayed
   }) : super(key: key);
 
   @override
@@ -18,10 +19,17 @@ class AgentMessageTile extends StatefulWidget {
 
 class _AgentMessageTileState extends State<AgentMessageTile> {
   bool isExpanded = false;
+  late String jsonString; // Store the encoded JSON string
+
+  @override
+  void initState() {
+    super.initState();
+    jsonString =
+        jsonEncode(widget.chat.jsonResponse); // Perform the encoding once
+  }
 
   @override
   Widget build(BuildContext context) {
-    String jsonString = jsonEncode(widget.chat.jsonResponse);
     return LayoutBuilder(
       builder: (context, constraints) {
         double chatViewWidth = constraints.maxWidth; // Get the chat view width
@@ -70,12 +78,10 @@ class _AgentMessageTileState extends State<AgentMessageTile> {
                         ),
                       ),
                       // Artifacts button (static for now)
-                      ElevatedButton(
+                      TextButton(
                         onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          side: const BorderSide(color: Colors.black),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.black, side: const BorderSide(color: Colors.black),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

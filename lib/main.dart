@@ -60,12 +60,14 @@ void main() async {
               SettingsViewModel(restApiUtility),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     final taskService = Provider.of<TaskService>(context, listen: false);
@@ -80,7 +82,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
           if (snapshot.hasData && snapshot.data != null) {
             return MultiProvider(
@@ -100,7 +102,7 @@ class MyApp extends StatelessWidget {
               child: MainLayout(),
             ); // User is signed in
           }
-          return FirebaseAuthView(); // User is not signed in, show auth UI
+          return const FirebaseAuthView(); // User is not signed in, show auth UI
         },
       ),
     );

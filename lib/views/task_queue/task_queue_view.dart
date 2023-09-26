@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 
 // TODO: Add view model for task queue instead of skill tree view model
 class TaskQueueView extends StatelessWidget {
+  const TaskQueueView({super.key});
+
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<SkillTreeViewModel>(context);
@@ -29,7 +31,7 @@ class TaskQueueView extends StatelessWidget {
               switch (viewModel.benchmarkStatusMap[node]) {
                 case null:
                 case BenchmarkTaskStatus.notStarted:
-                  leadingWidget = CircleAvatar(
+                  leadingWidget = const CircleAvatar(
                     radius: 12,
                     backgroundColor: Colors.grey,
                     child: CircleAvatar(
@@ -39,7 +41,7 @@ class TaskQueueView extends StatelessWidget {
                   );
                   break;
                 case BenchmarkTaskStatus.inProgress:
-                  leadingWidget = SizedBox(
+                  leadingWidget = const SizedBox(
                     width: 24,
                     height: 24,
                     child: CircularProgressIndicator(
@@ -48,7 +50,7 @@ class TaskQueueView extends StatelessWidget {
                   );
                   break;
                 case BenchmarkTaskStatus.success:
-                  leadingWidget = CircleAvatar(
+                  leadingWidget = const CircleAvatar(
                     radius: 12,
                     backgroundColor: Colors.green,
                     child: CircleAvatar(
@@ -58,7 +60,7 @@ class TaskQueueView extends StatelessWidget {
                   );
                   break;
                 case BenchmarkTaskStatus.failure:
-                  leadingWidget = CircleAvatar(
+                  leadingWidget = const CircleAvatar(
                     radius: 12,
                     backgroundColor: Colors.red,
                     child: CircleAvatar(
@@ -70,7 +72,7 @@ class TaskQueueView extends StatelessWidget {
               }
 
               return Container(
-                margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.black, width: 1),
@@ -78,9 +80,9 @@ class TaskQueueView extends StatelessWidget {
                 ),
                 child: ListTile(
                   leading: leadingWidget,
-                  title: Center(child: Text('${node.label}')),
+                  title: Center(child: Text(node.label)),
                   subtitle:
-                      Center(child: Text('${node.data.info.description}')),
+                      Center(child: Text(node.data.info.description)),
                 ),
               );
             },
@@ -108,7 +110,18 @@ class TaskQueueView extends StatelessWidget {
                         // Call runBenchmark method from SkillTreeViewModel
                         viewModel.runBenchmark(chatViewModel, taskViewModel);
                       },
-                child: Row(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  minimumSize: MaterialStateProperty.all(
+                      const Size(double.infinity, 50)), // Full width
+                  padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                ),
+                child: const Row(
                   mainAxisAlignment:
                       MainAxisAlignment.center, // Center the children
                   children: [
@@ -127,17 +140,6 @@ class TaskQueueView extends StatelessWidget {
                       size: 24, // Increase icon size
                     ),
                   ],
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  minimumSize: MaterialStateProperty.all(
-                      Size(double.infinity, 50)), // Full width
-                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
                 ),
               ),
             ),

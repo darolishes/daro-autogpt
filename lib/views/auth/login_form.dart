@@ -9,6 +9,7 @@ class LoginForm extends StatelessWidget {
   final Function onForgotPassword;
 
   LoginForm({
+    super.key,
     required this.emailController,
     required this.passwordController,
     required this.onLogin,
@@ -31,22 +32,18 @@ class LoginForm extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Form(
         key: _formKey,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Anmelden',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16),
             TextFormField(
               controller: emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'email@example.com',
                 labelText: 'Email',
                 border: OutlineInputBorder(),
@@ -58,10 +55,10 @@ class LoginForm extends StatelessWidget {
                 return null;
               },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextFormField(
               controller: passwordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Passwort',
                 labelText: 'Passwort',
                 border: OutlineInputBorder(),
@@ -74,20 +71,20 @@ class LoginForm extends StatelessWidget {
                 return null;
               },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   onLogin(emailController.text, passwordController.text);
                 }
               },
-              child: Text('Anmelden'),
+              child: const Text('Anmelden mit E-Mail'),
             ),
             TextButton(
               onPressed: () => onForgotPassword(),
-              child: Text('Passwort vergessen?'),
+              child: const Text('Passwort vergessen?'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

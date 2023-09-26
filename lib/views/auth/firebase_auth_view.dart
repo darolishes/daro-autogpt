@@ -3,7 +3,7 @@ import 'package:auto_gpt_flutter_client/services/auth_service.dart';
 import 'login_form.dart';
 
 class FirebaseAuthView extends StatefulWidget {
-  FirebaseAuthView({Key? key}) : super(key: key);
+  const FirebaseAuthView({Key? key}) : super(key: key);
 
   @override
   _FirebaseAuthViewState createState() => _FirebaseAuthViewState();
@@ -46,16 +46,16 @@ class _FirebaseAuthViewState extends State<FirebaseAuthView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-
-        child: LoginForm(
-          emailController: _emailController,
-          passwordController: _passwordController,
-          onLogin: _onLogin,
-          onGoogleSignIn: _onGoogleSignIn,
-          onGithubSignIn: _onGithubSignIn,
-          onForgotPassword: _onForgotPassword,
+      body: Center(
+        child: SingleChildScrollView(
+          child: LoginForm(
+            emailController: _emailController,
+            passwordController: _passwordController,
+            onLogin: _handleLogin,
+            onGoogleSignIn: _handleGoogleSignIn,
+            onGithubSignIn: _handleGithubSignIn,
+            onForgotPassword: _handleForgotPassword,
+          ),
         ),
       ),
     );

@@ -1,4 +1,3 @@
-// TODO: Remove the ability to have null values when benchmark implementation is complete
 /// `Config` holds configuration settings related to the benchmark run.
 ///
 /// It contains the path to the benchmark configuration for the agent and
@@ -27,10 +26,16 @@ class Config {
   /// [json]: A map containing key-value pairs corresponding to `Config` fields.
   ///
   /// Returns a new `Config` populated with values from the map.
-  factory Config.fromJson(Map<String, dynamic> json) => Config(
-        agentBenchmarkConfigPath: json['agent_benchmark_config_path'] ?? "",
-        host: json['host'] ?? "",
-      );
+  factory Config.fromJson(Map<String, dynamic> json) {
+    if (json['agent_benchmark_config_path'] == null || json['host'] == null) {
+      throw ArgumentError('Missing required fields in Config.fromJson');
+    }
+
+    return Config(
+      agentBenchmarkConfigPath: json['agent_benchmark_config_path'],
+      host: json['host'],
+    );
+  }
 
   /// Converts the `Config` instance to a map.
   ///
